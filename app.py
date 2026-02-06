@@ -233,6 +233,7 @@ class App(tk.Tk):
 
             self._set_status("Listening... (realtime)")
 
+            stream = None
             with sd.InputStream(
                 samplerate=SAMPLE_RATE,
                 channels=1,
@@ -240,11 +241,12 @@ class App(tk.Tk):
                 blocksize=int(SAMPLE_RATE * 0.1),
                 callback=callback,
             ):
-                async for event in client.audio.realtime.transcribe_stream(
+                stream = client.audio.realtime.transcribe_stream(
                     audio_stream=self._audio_stream_generator(),
                     model=REALTIME_MODEL_ID,
                     audio_format=audio_format,
-                ):
+                )
+                async for event in stream:
                     if not self._rt_running or self._rt_stop.is_set():
                         break
 
@@ -263,6 +265,11 @@ class App(tk.Tk):
         except Exception as exc:
             self._show_error(str(exc))
         finally:
+            if stream is not None:
+                try:
+                    await stream.aclose()
+                except Exception:
+                    pass
             self._rt_running = False
 
     async def _audio_stream_generator(self):
