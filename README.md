@@ -1,16 +1,17 @@
 # STT-Mistral
 
-STT-Mistral is a user-friendly desktop application that transforms audio files into text using Mistral AI's powerful voxtral-mini-2602 transcription model.
+STT-Mistral is a user-friendly desktop application that transforms audio into text using Mistral AI’s Voxtral models. It supports both **file-based transcription** and **real-time microphone streaming**.
 
-With its clean and intuitive interface, you can easily transcribe lectures, meetings, interviews, or any audio content in multiple languages without complex setup.
+With its clean and intuitive interface, you can transcribe lectures, meetings, interviews, or any audio content without complex setup.
 
-The app automatically detects the spoken language, supports popular audio formats like MP3, WAV, and M4A, and securely stores your API key locally for convenience.
+The app automatically detects the spoken language for file transcription, supports popular audio formats like MP3, WAV, and M4A, and securely stores your API key locally for convenience.
 
-Simply select your audio file, enter your Mistral API key, and click "Generate transcript" to get accurate text results in seconds - perfect for students, professionals, or anyone needing quick and reliable audio transcription.
+Simply select your audio file and click **Generate transcript**, or use **Start realtime** to stream from your microphone.
 
 ## Features
 
-- **Audio Transcription**: Transcribe audio files using Mistral's voxtral-mini-2602 model
+- **Audio Transcription**: Transcribe audio files using Mistral's `voxtral-mini-2602` model
+- **Realtime Mic Streaming**: Live transcription from your microphone using `voxtral-mini-transcribe-realtime-2602`
 - **Simple Interface**: Clean, intuitive GUI built with Tkinter
 - **Auto Language Detection**: Automatically detects the language in audio files
 - **Local API Key Storage**: Your Mistral API key is stored locally in config.json
@@ -20,6 +21,7 @@ Simply select your audio file, enter your Mistral API key, and click "Generate t
 
 - Python 3.7+
 - Mistral API key
+- Microphone access (for realtime mode)
 
 ## Installation
 
@@ -37,8 +39,8 @@ Simply select your audio file, enter your Mistral API key, and click "Generate t
 
 1. **Get API Key**: Obtain a Mistral API key from [Mistral AI](https://mistral.ai/)
 2. **Enter API Key**: Input your API key in the "Mistral API key" field
-3. **Select Audio File**: Click "Browse" to choose an audio file
-4. **Transcribe**: Click "Generate transcript" to start transcription
+3. **File mode**: Click "Browse" to choose an audio file, then "Generate transcript"
+4. **Realtime mode**: Click "Start realtime" and speak into your microphone; click "Stop realtime" to end
 5. **View Results**: The transcribed text will appear in the output area
 
 ## Configuration
@@ -47,10 +49,11 @@ Your API key is automatically saved locally in `config.json` for convenience.
 
 ## API Details
 
-- **Endpoint**: `https://api.mistral.ai/v1/audio/transcriptions`
-- **Model**: `voxtral-mini-2602`
+- **Endpoint (file)**: `https://api.mistral.ai/v1/audio/transcriptions`
+- **Model (file)**: `voxtral-mini-2602`
+- **Model (realtime)**: `voxtral-mini-transcribe-realtime-2602`
 - **Diarization**: Disabled (to avoid timestamp requirements)
-- **Language Detection**: Automatic
+- **Language Detection**: Automatic (file mode)
 
 ## File Structure
 

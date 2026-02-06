@@ -1,1 +1,5 @@
 requests
+numpy
+sounddevice
+websockets
+mistralai[realtime]
